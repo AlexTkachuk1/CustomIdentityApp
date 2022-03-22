@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using CustomIdentityApp.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace CustomIdentityApp.Models
+namespace CustomIdentityApp.EFStuff
 {
     public class ApplicationContext : IdentityDbContext<User>
     {

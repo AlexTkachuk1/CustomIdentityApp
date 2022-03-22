@@ -1,4 +1,4 @@
-namespace CustomIdentityApp.Models
+namespace CustomIdentityApp.ViewModels
 {
     public class ErrorViewModel
     {

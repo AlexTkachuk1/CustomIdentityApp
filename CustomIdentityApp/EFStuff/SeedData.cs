@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using CustomIdentityApp.Models;
+using Microsoft.AspNetCore.Identity;
 
-namespace CustomIdentityApp.Models
+namespace CustomIdentityApp.EFStuff
 {
     public class SeedData
     {
