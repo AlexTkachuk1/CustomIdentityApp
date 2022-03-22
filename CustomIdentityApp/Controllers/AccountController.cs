@@ -50,7 +50,7 @@ namespace CustomIdentityApp.Controllers
         {
             if(returnUrl == null)
             {
-                returnUrl = "https://localhost:7068/";
+                returnUrl = "https://localhost:44322/";
             }
             return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
@@ -85,7 +85,6 @@ namespace CustomIdentityApp.Controllers
             return View(model);
         }
 
-        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {

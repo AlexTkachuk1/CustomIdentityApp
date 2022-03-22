@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<CustomIdentityApp.Models.User>
  
-<h2>Список пользователей</h2>
+<h2 class="text">Список пользователей</h2>
 <table class="table">
     @foreach (var user in Model)
     {
         <tr>
-            <td>@user.Email</td>
+            <td class="text">@user.Email</td>
             <td>
                 <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-userid="@user.Id">Права доступа</a>
             </td>

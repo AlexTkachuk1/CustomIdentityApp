@@ -24,6 +24,9 @@ builder.Services.AddScoped<UserService>(container =>
 new UserService(container.GetService<HttpContextAccessor>())
 );
 
+builder.Services.AddRazorPages()
+                .AddRazorRuntimeCompilation();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

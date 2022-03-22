@@ -12,15 +12,13 @@ namespace CustomIdentityApp.Servises
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public string GetCurrentUserId()
+        public string GetCurrentUserName()
         {
-            var idStr = _httpContextAccessor
+            var userName = _httpContextAccessor
                 .HttpContext
-                .User
-                .Claims
-                .SingleOrDefault(x => x.Type == ClaimTypes.NameIdentifier)
-                ?.Value;
-            return idStr;
+                .User.Identity.Name;
+                
+            return userName;
         }
     }
 }

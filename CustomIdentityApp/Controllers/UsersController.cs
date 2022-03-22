@@ -1,6 +1,7 @@
 ﻿using CustomIdentityApp.Models;
 using CustomIdentityApp.Servises;
 using CustomIdentityApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,7 @@ namespace CustomIdentityApp.Controllers
             _userService = userService;
             _userManager = userManager;
         }
-
+        [Authorize(Roles = "moderator")]
         public IActionResult Index() => View(_userManager.Users.ToList());
 
         public IActionResult Create() => View();
@@ -43,6 +44,17 @@ namespace CustomIdentityApp.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> EditForUser()
+        {
+            var userName = _userService.GetCurrentUserName();
+            User user = await _userManager.FindByNameAsync(userName);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            EditUserViewModel model = new EditUserViewModel { Id = user.Id, Email = user.Email, UserName = user.UserName, Year = user.Year };
+            return RedirectToAction("Edit", model);
+        }
         public async Task<IActionResult> Edit(string id)
         {
             User user = await _userManager.FindByIdAsync(id);
@@ -93,6 +105,8 @@ namespace CustomIdentityApp.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [Authorize(Roles = "moderator")]
         public async Task<IActionResult> ChangePassword(string id)
         {
             User user = await _userManager.FindByIdAsync(id);
@@ -105,6 +119,7 @@ namespace CustomIdentityApp.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "moderator")]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (ModelState.IsValid)
