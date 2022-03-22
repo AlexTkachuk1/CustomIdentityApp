@@ -1,5 +1,4 @@
 ﻿using CustomIdentityApp.Models;
-using CustomIdentityApp.Servises;
 using CustomIdentityApp.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -10,17 +9,16 @@ namespace CustomIdentityApp.Controllers
     public class UsersController : Controller
     {
         UserManager<User> _userManager;
-        UserService _userService;
-        public UsersController(UserService userService,
-            UserManager<User> userManager)
+        public UsersController( UserManager<User> userManager)
         {
-            _userService = userService;
             _userManager = userManager;
         }
         [Authorize(Roles = "moderator")]
         public IActionResult Index() => View(_userManager.Users.ToList());
 
         public IActionResult Create() => View();
+
+        private Task<User> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateUserViewModel model)
@@ -46,8 +44,9 @@ namespace CustomIdentityApp.Controllers
 
         public async Task<IActionResult> EditForUser()
         {
-            var userName = _userService.GetCurrentUserName();
-            User user = await _userManager.FindByNameAsync(userName);
+            var currentUser = await GetCurrentUserAsync();
+            var userId = currentUser?.Id;
+            User user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
                 return NotFound();

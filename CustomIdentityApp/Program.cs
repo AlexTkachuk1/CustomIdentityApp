@@ -1,5 +1,4 @@
 using CustomIdentityApp.Models;
-using CustomIdentityApp.Servises;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,10 +18,6 @@ builder.Services.AddIdentity<User, IdentityRole>(opts =>
     opts.Password.RequireDigit = true; // требуются ли цифры
 })
 .AddEntityFrameworkStores<ApplicationContext>();
-
-builder.Services.AddScoped<UserService>(container =>
-new UserService(container.GetService<HttpContextAccessor>())
-);
 
 builder.Services.AddRazorPages()
                 .AddRazorRuntimeCompilation();
