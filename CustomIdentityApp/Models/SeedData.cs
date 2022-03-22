@@ -12,9 +12,9 @@ namespace CustomIdentityApp.Models
             {
                 await roleManager.CreateAsync(new IdentityRole("admin"));
             }
-            if (await roleManager.FindByNameAsync("employee") == null)
+            if (await roleManager.FindByNameAsync("moderator") == null)
             {
-                await roleManager.CreateAsync(new IdentityRole("employee"));
+                await roleManager.CreateAsync(new IdentityRole("moderator"));
             }
             if (await userManager.FindByNameAsync(adminEmail) == null)
             {
