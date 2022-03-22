@@ -52,9 +52,10 @@ body {
 }
 
 .logo {
-    /*background: transparent url('') center center no-repeat;*/
+    background: transparent url('/images/BooBookLogo.jpg') center center no-repeat;
     width: 195px;
-    background-size: contain;
+    height :120px;
+    background-size: 120px,120px;
     text-indent: 100%;
     white-space: nowrap;
     overflow: hidden;
